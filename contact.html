@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Captch validation</title>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			box-sizing: border-box;
+		}
+		body {
+			font-family: Brush Script MT;
+			font-weight: 12px;
+			background: #84e184;
+		}
+		.Contact-form {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%,-50%);
+			width: 90%;
+			max-width: 470px;
+			background: #33cc33;
+			padding: 20px 30px;
+		}
+		.form-title {
+			font-size: 20px;
+			position: relative;
+			top: -15px;
+			left: 150px;
+		}
+
+	  	input[type="text"],
+      input[type="Email"],
+      input[type="Phone"],
+      input[type="Message"],
+      select,
+      textarea {
+        width: 400px;
+        padding: 12px;
+        background-color: #d6f5d6;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin-bottom: 16px;
+        resize: vertical;
+      }
+      button {
+        background-color: #4d4dff;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+     
+	</style>
+</head>
+<body>
+	<form name="form1" method="get">
+	<div class="Contact-form">
+		<div class="form-title">Contact Us</div>
+		<label>Name</label>
+		<input type="text" id="Name" placeholder="Enter your name" required>
+
+		<label>Phone Number</label>
+		<input type="text" id="Phone" placeholder="Enter your Phone number" required>
+
+		<label>Email I'D</label>
+		<input type="text" id="Email" placeholder="Enter your Email I'D" required>
+
+		<label>Message</label>
+		<input type="text" id="Message" placeholder="Enter your Message" required>
+
+<label>Enter Captcha</label>
+			<input type="text" id="CaptchaEnter" placeholder=" Enter The Captcha Text Here "> 
+
+	 <input type="text" id="captchaTxtArea" name="cap" value=""> 
+
+
+		 <button id="refreshbtn" type="button" onclick="genNewCaptcha()">Refresh</button>
+		<button id="checkbtn" type="submit" onclick="checkCaptcha()">Submit</button>
+
+	</div>
+</form>
+
+<script type="text/javascript">
+  var captcha, chars;
+
+  function genNewCaptcha(){
+    chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    captcha = chars[Math.floor(Math.random() * chars.length )];
+    for(var i=0; i<6; i++){
+      captcha = captcha + chars[Math.floor(Math.random() * chars.length )];
+    }
+    form1.cap.value = captcha;
+  }
+
+  function checkCaptcha(){
+    var check = document.getElementById("CaptchaEnter").value;
+    if(captcha == check){
+      alert("Form Submitted Thank You !!");
+      document.getElementById("CaptchaEnter").value = "";
+    }else{
+      alert("InValid Captcha!!! Please Try Again");
+      document.getElementById("CaptchaEnter").value = "";
+    }
+
+    genNewCaptcha();
+  }
+
+window.addEventListener("load", genNewCaptcha);
+</script>
+</body>
+</html>
